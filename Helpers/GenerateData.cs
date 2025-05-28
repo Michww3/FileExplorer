@@ -14,23 +14,23 @@ namespace FileExplorer.Helpers
     {
         public static void GenerateAndSaveProducts()
         {
-            Product[] products =
+            Test[] products =
             {
-                new Product(1, "product1", "No description"),
-                new Product(2, "product2", "No description"),
-                new Product(3, "product3", "No description"),
-                new Product(4, "product4", "No description"),
-                new Product(5, "product5", "No description"),
-                new Product(6, "product6", "No description"),
-                new Product(7, "product7", "No description"),
-                new Product(8, "product8", "No description"),
-                new Product(9, "product9", "No description")
+                new Test(1, "product1", "No description"),
+                new Test(2, "product2", "No description"),
+                new Test(3, "product3", "No description"),
+                new Test(4, "product4", "No description"),
+                new Test(5, "product5", "No description"),
+                new Test(6, "product6", "No description"),
+                new Test(7, "product7", "No description"),
+                new Test(8, "product8", "No description"),
+                new Test(9, "product9", "No description")
             };
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.Title = "Сохранить файл как";
-            saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|XML файлы (*.xml)|*.xml|Все файлы (*.*)|*.*";
             saveFileDialog.DefaultExt = "txt";
             saveFileDialog.FileName = "data.txt";
 

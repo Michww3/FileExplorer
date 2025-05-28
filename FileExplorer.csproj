@@ -47,9 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\BaseModel.cs" />
+    <Compile Include="Classes\BaseNavigatorObject.cs" />
     <Compile Include="Classes\Document.cs" />
+    <Compile Include="Classes\Navigator.cs" />
     <Compile Include="Classes\Notification.cs" />
     <Compile Include="Classes\Product.cs" />
+    <Compile Include="Classes\Test.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

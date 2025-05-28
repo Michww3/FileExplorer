@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,7 +12,7 @@ namespace FileExplorer
 {
     public partial class Form1 : Form
     {
-        private SemaphoreSlim semaphore = new SemaphoreSlim(1000); // ограничение по параллельным задачам
+        private SemaphoreSlim semaphore = new SemaphoreSlim(1000,1000); // ограничение по параллельным задачам
         private ConcurrentQueue<FileInfo> fileQueue = new ConcurrentQueue<FileInfo>();
         private System.Threading.Timer uiTimer;
 
@@ -30,19 +31,6 @@ namespace FileExplorer
             FilesDataGridView.Columns.Add("LastModified", "Последнее изменение");
 
             uiTimer = new System.Threading.Timer(UpdateDataGridView, null, 0, 300);
-        }
-
-        private void UiTimer_Tick(object sender, EventArgs e)
-        {
-            while (fileQueue.TryDequeue(out var fileInfo))
-            {
-                FilesDataGridView.Rows.Add(
-                    fileInfo.Name,
-                    fileInfo.FullName,
-                    fileInfo.Length / 1024,
-                    fileInfo.LastWriteTime
-                );
-            }
         }
 
         private void DirectorySaveButton_Click(object sender, EventArgs e)
@@ -88,11 +76,9 @@ namespace FileExplorer
                 return;
             }
 
-            // Очистка и сброс очереди
             FilesDataGridView.Invoke(new Action(() => FilesDataGridView.Rows.Clear()));
             fileQueue = new ConcurrentQueue<FileInfo>();
 
-            // Запуск поиска в фоновом потоке
             ThreadPool.QueueUserWorkItem(_ => SearchFiles(directoryPath));
         }
 
@@ -114,7 +100,7 @@ namespace FileExplorer
             }
             catch (UnauthorizedAccessException)
             {
-                // Пропустить
+
             }
             catch (Exception ex)
             {
@@ -134,7 +120,7 @@ namespace FileExplorer
             {
                 FilesDataGridView.Invoke(new Action(() =>
                 {
-                    int maxItems = 50;
+                    int maxItems = 100;
                     int count = 0;
 
                     while (count < maxItems && fileQueue.TryDequeue(out var fileInfo))
@@ -149,8 +135,18 @@ namespace FileExplorer
                     }
                 }));
             }
-
         }
-
+        private void UiTimer_Tick(object sender, EventArgs e)
+        {
+            while (fileQueue.TryDequeue(out var fileInfo))
+            {
+                FilesDataGridView.Rows.Add(
+                    fileInfo.Name,
+                    fileInfo.FullName,
+                    fileInfo.Length / 1024,
+                    fileInfo.LastWriteTime
+                );
+            }
+        }
     }
 }
