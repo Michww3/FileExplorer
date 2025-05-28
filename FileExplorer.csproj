@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\BaseModel.cs" />
-    <Compile Include="Classes\BaseNavigatorObject.cs" />
+    <Compile Include="Classes\NavigatorObject.cs" />
     <Compile Include="Classes\Document.cs" />
     <Compile Include="Classes\Navigator.cs" />
     <Compile Include="Classes\Notification.cs" />

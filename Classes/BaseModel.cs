@@ -5,6 +5,7 @@ namespace FileExplorer.Classes
     internal class BaseModel
     {
         public string name;
-        public DateTime nreateDate;
+        public DateTime createDate;
+        public int Id;
     }
 }
