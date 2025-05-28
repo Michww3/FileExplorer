@@ -4,6 +4,6 @@ namespace FileExplorer.Classes
 {
     internal class Navigator
     {
-        List<NavigatorObject> navigatorObjects;
+        List<NavigatorObject> NavigatorObjects { get; set; }
     }
 }

@@ -19,6 +19,8 @@ namespace FileExplorer
         public Form1()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
             DirectoryTextBox.Text = LoadDirectoryFromRegistry();
 
             FilesDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

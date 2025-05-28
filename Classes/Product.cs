@@ -2,7 +2,7 @@
 {
     internal class Product : BaseModel
     {
-        public string productFormat;
-        public int size;
+        public string ProductFormat { get; set; }
+        public int Size { get; set; }
     }
 }

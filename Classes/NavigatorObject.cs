@@ -4,8 +4,8 @@ namespace FileExplorer.Classes
 {
     internal class NavigatorObject
     {
-        public List<Product> products;
-        public List<Notification> notifications;
-        public List<Document> documents;
+        public List<Product> Products { get; set; }
+        public List<Notification> Notifications { get; set; }
+        public List<Document> Documents { get; set; }
     }
 }

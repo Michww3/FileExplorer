@@ -58,7 +58,7 @@
             this.FilesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FilesDataGridView.Location = new System.Drawing.Point(224, 12);
             this.FilesDataGridView.Name = "FilesDataGridView";
-            this.FilesDataGridView.Size = new System.Drawing.Size(564, 426);
+            this.FilesDataGridView.Size = new System.Drawing.Size(1668, 1017);
             this.FilesDataGridView.TabIndex = 2;
             // 
             // DirectorySaveButton
@@ -95,7 +95,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.LoadFilesButton);
             this.Controls.Add(this.GenerateDataButton);
             this.Controls.Add(this.DirectorySaveButton);

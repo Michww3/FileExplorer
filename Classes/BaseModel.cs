@@ -4,8 +4,8 @@ namespace FileExplorer.Classes
 {
     internal class BaseModel
     {
-        public string name;
-        public DateTime createDate;
-        public int Id;
+        public string Name { get; set; }
+        public DateTime CreateDate { get; set; }
+        public int Id { get; set; }
     }
 }

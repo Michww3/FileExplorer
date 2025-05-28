@@ -2,7 +2,7 @@
 {
     internal class Document : BaseModel
     {
-        public string documentType;
-        public int size;
+        public string DocumentType { get; set; }
+        public int Size { get; set; }
     }
 }

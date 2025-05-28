@@ -2,6 +2,6 @@
 {
     internal class Notification : BaseModel
     {
-        public string title;
+        public string Title { get; set; }
     }
 }
