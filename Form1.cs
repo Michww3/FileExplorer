@@ -1,4 +1,5 @@
-﻿using FileExplorer.Helpers;
+﻿using FileExplorer.Config;
+using FileExplorer.Helpers;
 using Microsoft.Win32;
 using System;
 using System.Collections.Concurrent;
@@ -18,47 +19,23 @@ namespace FileExplorer
         {
             InitializeComponent();
 
-            DirectoryTextBox.Text = LoadDirectoryFromRegistry();
+            DirectoryTextBox.Text = MainForm.LoadDirectoryFromRegistry();
 
             uiTimer = new System.Threading.Timer(UpdateDataGridView, null, 0, 100);
         }
         private void DirectorySaveButton_Click(object sender, EventArgs e)
         {
-            SaveDirectoryToRegistry(DirectoryTextBox.Text);
+            MainForm.SaveDirectoryToRegistry(DirectoryTextBox.Text);
         }
-        public void SaveDirectoryToRegistry(string directoryPath)
-        {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\MyFileExplorer");
-            if (key != null)
-            {
-                key.SetValue("LastDirectory", directoryPath);
-                key.Close();
-            }
-        }
-        public string LoadDirectoryFromRegistry()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\MyFileExplorer");
-            if (key != null)
-            {
-                object val = key.GetValue("LastDirectory");
-                if (val != null)
-                {
-                    return val.ToString();
-                }
-            }
-            return string.Empty;
-        }
-        private void GenerateDataButton_Click(object sender, EventArgs e)
-        {
-            GenerateData.GenerateAndSaveProducts();
-        }
+
+
         private void LoadFilesButton_Click(object sender, EventArgs e)
         {
             string directoryPath = DirectoryTextBox.Text;
 
             if (!Directory.Exists(directoryPath))
             {
-                MessageBox.Show("Указанная директория не существует.");
+                MessageBox.Show(Strings.DirectoryNotFound);
                 return;
             }
 

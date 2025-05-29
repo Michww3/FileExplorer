@@ -2,7 +2,7 @@
 
 namespace FileExplorer.Classes
 {
-    internal class NavigatorObject
+    public class NavigatorObject
     {
         public List<Product> Products { get; set; }
         public List<Notification> Notifications { get; set; }

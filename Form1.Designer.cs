@@ -31,9 +31,6 @@
             this.DirectoryTextBox = new System.Windows.Forms.TextBox();
             this.DirectorySaveLabel = new System.Windows.Forms.Label();
             this.FilesDataGridView = new System.Windows.Forms.DataGridView();
-            this.DirectorySaveButton = new System.Windows.Forms.Button();
-            this.GenerateDataButton = new System.Windows.Forms.Button();
-            this.LoadFilesButton = new System.Windows.Forms.Button();
             this.FileImage = new System.Windows.Forms.DataGridViewImageColumn();
             this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +38,8 @@
             this.CreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastModifed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FileExtension = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DirectorySaveButton = new System.Windows.Forms.Button();
+            this.LoadFilesButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FilesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,36 +77,6 @@
             this.FilesDataGridView.Size = new System.Drawing.Size(1713, 1041);
             this.FilesDataGridView.TabIndex = 2;
             // 
-            // DirectorySaveButton
-            // 
-            this.DirectorySaveButton.Location = new System.Drawing.Point(12, 70);
-            this.DirectorySaveButton.Name = "DirectorySaveButton";
-            this.DirectorySaveButton.Size = new System.Drawing.Size(75, 23);
-            this.DirectorySaveButton.TabIndex = 3;
-            this.DirectorySaveButton.Text = "Сохранить";
-            this.DirectorySaveButton.UseVisualStyleBackColor = true;
-            this.DirectorySaveButton.Click += new System.EventHandler(this.DirectorySaveButton_Click);
-            // 
-            // GenerateDataButton
-            // 
-            this.GenerateDataButton.Location = new System.Drawing.Point(15, 190);
-            this.GenerateDataButton.Name = "GenerateDataButton";
-            this.GenerateDataButton.Size = new System.Drawing.Size(170, 69);
-            this.GenerateDataButton.TabIndex = 4;
-            this.GenerateDataButton.Text = "Создать и сохранить данные в файл";
-            this.GenerateDataButton.UseVisualStyleBackColor = true;
-            this.GenerateDataButton.Click += new System.EventHandler(this.GenerateDataButton_Click);
-            // 
-            // LoadFilesButton
-            // 
-            this.LoadFilesButton.Location = new System.Drawing.Point(15, 113);
-            this.LoadFilesButton.Name = "LoadFilesButton";
-            this.LoadFilesButton.Size = new System.Drawing.Size(170, 71);
-            this.LoadFilesButton.TabIndex = 5;
-            this.LoadFilesButton.Text = "Поиск файлов в директории";
-            this.LoadFilesButton.UseVisualStyleBackColor = true;
-            this.LoadFilesButton.Click += new System.EventHandler(this.LoadFilesButton_Click);
-            // 
             // FileImage
             // 
             this.FileImage.HeaderText = "";
@@ -143,13 +112,32 @@
             this.FileExtension.HeaderText = "Расширение";
             this.FileExtension.Name = "FileExtension";
             // 
+            // DirectorySaveButton
+            // 
+            this.DirectorySaveButton.Location = new System.Drawing.Point(12, 70);
+            this.DirectorySaveButton.Name = "DirectorySaveButton";
+            this.DirectorySaveButton.Size = new System.Drawing.Size(75, 23);
+            this.DirectorySaveButton.TabIndex = 3;
+            this.DirectorySaveButton.Text = "Сохранить";
+            this.DirectorySaveButton.UseVisualStyleBackColor = true;
+            this.DirectorySaveButton.Click += new System.EventHandler(this.DirectorySaveButton_Click);
+            // 
+            // LoadFilesButton
+            // 
+            this.LoadFilesButton.Location = new System.Drawing.Point(15, 113);
+            this.LoadFilesButton.Name = "LoadFilesButton";
+            this.LoadFilesButton.Size = new System.Drawing.Size(170, 71);
+            this.LoadFilesButton.TabIndex = 5;
+            this.LoadFilesButton.Text = "Поиск файлов в директории";
+            this.LoadFilesButton.UseVisualStyleBackColor = true;
+            this.LoadFilesButton.Click += new System.EventHandler(this.LoadFilesButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.LoadFilesButton);
-            this.Controls.Add(this.GenerateDataButton);
             this.Controls.Add(this.DirectorySaveButton);
             this.Controls.Add(this.FilesDataGridView);
             this.Controls.Add(this.DirectorySaveLabel);
@@ -169,7 +157,6 @@
         private System.Windows.Forms.Label DirectorySaveLabel;
         private System.Windows.Forms.DataGridView FilesDataGridView;
         private System.Windows.Forms.Button DirectorySaveButton;
-        private System.Windows.Forms.Button GenerateDataButton;
         private System.Windows.Forms.Button LoadFilesButton;
         private System.Windows.Forms.DataGridViewImageColumn FileImage;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
