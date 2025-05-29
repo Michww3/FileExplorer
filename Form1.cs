@@ -3,36 +3,24 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
-using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FileExplorer
 {
     public partial class Form1 : Form
     {
-        private SemaphoreSlim semaphore = new SemaphoreSlim(1000,1000); // ограничение по параллельным задачам
+        private SemaphoreSlim semaphore = new SemaphoreSlim(1000, 1000); // ограничение по параллельным задачам
         private ConcurrentQueue<FileInfo> fileQueue = new ConcurrentQueue<FileInfo>();
         private System.Threading.Timer uiTimer;
 
         public Form1()
         {
             InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.WindowState = FormWindowState.Maximized;
+
             DirectoryTextBox.Text = LoadDirectoryFromRegistry();
 
-            FilesDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            FilesDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            FilesDataGridView.MultiSelect = false;
-
-            FilesDataGridView.Columns.Add("FileName", "Имя файла");
-            FilesDataGridView.Columns.Add("FullPath", "Полный путь");
-            FilesDataGridView.Columns.Add("SizeInKb", "Размер (KB)");
-            FilesDataGridView.Columns.Add("LastModified", "Последнее изменение");
-
-            uiTimer = new System.Threading.Timer(UpdateDataGridView, null, 0, 300);
+            uiTimer = new System.Threading.Timer(UpdateDataGridView, null, 0, 100);
         }
 
         private void DirectorySaveButton_Click(object sender, EventArgs e)
@@ -131,24 +119,28 @@ namespace FileExplorer
                             fileInfo.Name,
                             fileInfo.FullName,
                             fileInfo.Length / 1024,
-                            fileInfo.LastWriteTime
+                            fileInfo.CreationTime,
+                            fileInfo.LastWriteTime,
+                            fileInfo.Extension
                         );
+                        FilesDataGridView.Name = fileInfo.Name;
                         count++;
                     }
                 }));
             }
         }
-        private void UiTimer_Tick(object sender, EventArgs e)
-        {
-            while (fileQueue.TryDequeue(out var fileInfo))
-            {
-                FilesDataGridView.Rows.Add(
-                    fileInfo.Name,
-                    fileInfo.FullName,
-                    fileInfo.Length / 1024,
-                    fileInfo.LastWriteTime
-                );
-            }
-        }
+
+        //private void UiTimer_Tick(object sender, EventArgs e)
+        //{
+        //    while (fileQueue.TryDequeue(out var fileInfo))
+        //    {
+        //        FilesDataGridView.Rows.Add(
+        //            fileInfo.Name,
+        //            fileInfo.FullName,
+        //            fileInfo.Length / 1024,
+        //            fileInfo.LastWriteTime
+        //        );
+        //    }
+        //}
     }
 }

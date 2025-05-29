@@ -34,6 +34,12 @@
             this.DirectorySaveButton = new System.Windows.Forms.Button();
             this.GenerateDataButton = new System.Windows.Forms.Button();
             this.LoadFilesButton = new System.Windows.Forms.Button();
+            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SizeInKb = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastModifed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FileExtension = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.FilesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,10 +61,19 @@
             // 
             // FilesDataGridView
             // 
+            this.FilesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FilesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FilesDataGridView.Location = new System.Drawing.Point(224, 12);
+            this.FilesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FileName,
+            this.FullPath,
+            this.SizeInKb,
+            this.CreationTime,
+            this.LastModifed,
+            this.FileExtension});
+            this.FilesDataGridView.Dock = System.Windows.Forms.DockStyle.Right;
+            this.FilesDataGridView.Location = new System.Drawing.Point(191, 0);
             this.FilesDataGridView.Name = "FilesDataGridView";
-            this.FilesDataGridView.Size = new System.Drawing.Size(1668, 1017);
+            this.FilesDataGridView.Size = new System.Drawing.Size(1713, 1041);
             this.FilesDataGridView.TabIndex = 2;
             // 
             // DirectorySaveButton
@@ -91,6 +106,36 @@
             this.LoadFilesButton.UseVisualStyleBackColor = true;
             this.LoadFilesButton.Click += new System.EventHandler(this.LoadFilesButton_Click);
             // 
+            // FileName
+            // 
+            this.FileName.HeaderText = "Имя файла";
+            this.FileName.Name = "FileName";
+            // 
+            // FullPath
+            // 
+            this.FullPath.HeaderText = "Полный путь";
+            this.FullPath.Name = "FullPath";
+            // 
+            // SizeInKb
+            // 
+            this.SizeInKb.HeaderText = "Размер (КВ)";
+            this.SizeInKb.Name = "SizeInKb";
+            // 
+            // CreationTime
+            // 
+            this.CreationTime.HeaderText = "Время создания";
+            this.CreationTime.Name = "CreationTime";
+            // 
+            // LastModifed
+            // 
+            this.LastModifed.HeaderText = "Последнее изменение";
+            this.LastModifed.Name = "LastModifed";
+            // 
+            // FileExtension
+            // 
+            this.FileExtension.HeaderText = "Расширение";
+            this.FileExtension.Name = "FileExtension";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,6 +149,7 @@
             this.Controls.Add(this.DirectoryTextBox);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.FilesDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -118,6 +164,12 @@
         private System.Windows.Forms.Button DirectorySaveButton;
         private System.Windows.Forms.Button GenerateDataButton;
         private System.Windows.Forms.Button LoadFilesButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullPath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SizeInKb;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreationTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FileExtension;
     }
 }
 
