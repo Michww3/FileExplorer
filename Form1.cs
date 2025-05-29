@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Concurrent;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -13,7 +14,6 @@ namespace FileExplorer
         private SemaphoreSlim semaphore = new SemaphoreSlim(1000, 1000); // ограничение по параллельным задачам
         private ConcurrentQueue<FileInfo> fileQueue = new ConcurrentQueue<FileInfo>();
         private System.Threading.Timer uiTimer;
-
         public Form1()
         {
             InitializeComponent();
@@ -22,12 +22,10 @@ namespace FileExplorer
 
             uiTimer = new System.Threading.Timer(UpdateDataGridView, null, 0, 100);
         }
-
         private void DirectorySaveButton_Click(object sender, EventArgs e)
         {
             SaveDirectoryToRegistry(DirectoryTextBox.Text);
         }
-
         public void SaveDirectoryToRegistry(string directoryPath)
         {
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\MyFileExplorer");
@@ -50,12 +48,10 @@ namespace FileExplorer
             }
             return string.Empty;
         }
-
         private void GenerateDataButton_Click(object sender, EventArgs e)
         {
             GenerateData.GenerateAndSaveProducts();
         }
-
         private void LoadFilesButton_Click(object sender, EventArgs e)
         {
             string directoryPath = DirectoryTextBox.Text;
@@ -71,7 +67,6 @@ namespace FileExplorer
 
             ThreadPool.QueueUserWorkItem(_ => SearchFiles(directoryPath));
         }
-
         private void SearchFiles(string directory)
         {
             try
@@ -80,6 +75,19 @@ namespace FileExplorer
 
                 foreach (var file in Directory.GetFiles(directory))
                 {
+                    if (Path.GetExtension(file).Equals(".dll", StringComparison.OrdinalIgnoreCase))
+                        continue;
+                    else if (Path.GetExtension(file).Equals(".tmp", StringComparison.OrdinalIgnoreCase))
+                        continue;
+                    else if (Path.GetExtension(file).Equals(".ini", StringComparison.OrdinalIgnoreCase))
+                        continue;
+                    else if (Path.GetExtension(file).Equals(".fon", StringComparison.OrdinalIgnoreCase))
+                        continue;
+                    else if (Path.GetExtension(file).Equals(".ttf", StringComparison.OrdinalIgnoreCase))
+                        continue;
+                    else if (Path.GetExtension(file).Equals(".ttc", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
                     fileQueue.Enqueue(new FileInfo(file));
                 }
 
@@ -88,34 +96,34 @@ namespace FileExplorer
                     ThreadPool.QueueUserWorkItem(_ => SearchFiles(subDir));
                 }
             }
-            catch (UnauthorizedAccessException)
+            catch (UnauthorizedAccessException e)
             {
-
+                Console.WriteLine(e.Message);
             }
-            catch (Exception ex)
+            catch (DirectoryNotFoundException e)
             {
-#if DEBUG
-                Console.WriteLine(ex.Message);
-#endif
+                Console.WriteLine(e.Message);
             }
             finally
             {
                 semaphore.Release();
             }
         }
-
         private void UpdateDataGridView(object state)
         {
             if (FilesDataGridView.IsHandleCreated && !FilesDataGridView.IsDisposed)
             {
                 FilesDataGridView.Invoke(new Action(() =>
                 {
-                    int maxItems = 100;
+                    int maxItems = 30;
                     int count = 0;
 
                     while (count < maxItems && fileQueue.TryDequeue(out var fileInfo))
                     {
+                        Bitmap bmp = ImageToDataGrid.GetFileIcon(fileInfo.FullName).ToBitmap();
+
                         FilesDataGridView.Rows.Add(
+                            bmp,
                             fileInfo.Name,
                             fileInfo.FullName,
                             fileInfo.Length / 1024,
@@ -123,24 +131,10 @@ namespace FileExplorer
                             fileInfo.LastWriteTime,
                             fileInfo.Extension
                         );
-                        FilesDataGridView.Name = fileInfo.Name;
                         count++;
                     }
                 }));
             }
         }
-
-        //private void UiTimer_Tick(object sender, EventArgs e)
-        //{
-        //    while (fileQueue.TryDequeue(out var fileInfo))
-        //    {
-        //        FilesDataGridView.Rows.Add(
-        //            fileInfo.Name,
-        //            fileInfo.FullName,
-        //            fileInfo.Length / 1024,
-        //            fileInfo.LastWriteTime
-        //        );
-        //    }
-        //}
     }
 }

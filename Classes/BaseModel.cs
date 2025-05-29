@@ -2,7 +2,7 @@
 
 namespace FileExplorer.Classes
 {
-    internal class BaseModel
+    internal abstract class BaseModel
     {
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }

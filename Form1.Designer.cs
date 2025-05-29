@@ -34,6 +34,7 @@
             this.DirectorySaveButton = new System.Windows.Forms.Button();
             this.GenerateDataButton = new System.Windows.Forms.Button();
             this.LoadFilesButton = new System.Windows.Forms.Button();
+            this.FileImage = new System.Windows.Forms.DataGridViewImageColumn();
             this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SizeInKb = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,6 +65,7 @@
             this.FilesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FilesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FilesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FileImage,
             this.FileName,
             this.FullPath,
             this.SizeInKb,
@@ -105,6 +107,11 @@
             this.LoadFilesButton.Text = "Поиск файлов в директории";
             this.LoadFilesButton.UseVisualStyleBackColor = true;
             this.LoadFilesButton.Click += new System.EventHandler(this.LoadFilesButton_Click);
+            // 
+            // FileImage
+            // 
+            this.FileImage.HeaderText = "";
+            this.FileImage.Name = "FileImage";
             // 
             // FileName
             // 
@@ -164,6 +171,7 @@
         private System.Windows.Forms.Button DirectorySaveButton;
         private System.Windows.Forms.Button GenerateDataButton;
         private System.Windows.Forms.Button LoadFilesButton;
+        private System.Windows.Forms.DataGridViewImageColumn FileImage;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn FullPath;
         private System.Windows.Forms.DataGridViewTextBoxColumn SizeInKb;
