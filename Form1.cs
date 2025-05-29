@@ -1,6 +1,5 @@
 ﻿using FileExplorer.Config;
 using FileExplorer.Helpers;
-using Microsoft.Win32;
 using System;
 using System.Collections.Concurrent;
 using System.Drawing;
@@ -27,8 +26,6 @@ namespace FileExplorer
         {
             MainForm.SaveDirectoryToRegistry(DirectoryTextBox.Text);
         }
-
-
         private void LoadFilesButton_Click(object sender, EventArgs e)
         {
             string directoryPath = DirectoryTextBox.Text;
@@ -73,14 +70,18 @@ namespace FileExplorer
                     ThreadPool.QueueUserWorkItem(_ => SearchFiles(subDir));
                 }
             }
-            catch (UnauthorizedAccessException e)
+            catch(Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            catch (DirectoryNotFoundException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            //catch (UnauthorizedAccessException e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+            //catch (DirectoryNotFoundException e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
             finally
             {
                 semaphore.Release();
