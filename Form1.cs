@@ -30,7 +30,7 @@ namespace FileExplorer
 
         private void LoadFilesButton_Click(object sender, EventArgs e)
         {
-            string extension = FileExtensionLabel.Text;
+            string extension = FileExtensionLabel.Text.Trim();
             string directoryPath = DirectoryTextBox.Text;
 
             if (!Directory.Exists(directoryPath))
