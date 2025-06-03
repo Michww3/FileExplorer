@@ -11,9 +11,10 @@ namespace FileExplorer
 {
     public partial class Form1 : Form
     {
-        private SemaphoreSlim semaphore = new SemaphoreSlim(1000, 1000); // ограничение по параллельным задачам
+        private SemaphoreSlim semaphore = new SemaphoreSlim(1000, 1000);
         private ConcurrentQueue<FileInfo> fileQueue = new ConcurrentQueue<FileInfo>();
         private System.Threading.Timer uiTimer;
+
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace FileExplorer
         {
             MainForm.SaveDirectoryToRegistry(DirectoryTextBox.Text);
         }
+
         private void LoadFilesButton_Click(object sender, EventArgs e)
         {
             string directoryPath = DirectoryTextBox.Text;
@@ -37,55 +39,8 @@ namespace FileExplorer
             }
 
             FilesDataGridView.Invoke(new Action(() => FilesDataGridView.Rows.Clear()));
-            fileQueue = new ConcurrentQueue<FileInfo>();
 
-            ThreadPool.QueueUserWorkItem(_ => SearchFiles(directoryPath));
-        }
-        private void SearchFiles(string directory)
-        {
-            try
-            {
-                semaphore.Wait();
-
-                foreach (var file in Directory.GetFiles(directory))
-                {
-                    if (Path.GetExtension(file).Equals(".dll", StringComparison.OrdinalIgnoreCase))
-                        continue;
-                    else if (Path.GetExtension(file).Equals(".tmp", StringComparison.OrdinalIgnoreCase))
-                        continue;
-                    else if (Path.GetExtension(file).Equals(".ini", StringComparison.OrdinalIgnoreCase))
-                        continue;
-                    else if (Path.GetExtension(file).Equals(".fon", StringComparison.OrdinalIgnoreCase))
-                        continue;
-                    else if (Path.GetExtension(file).Equals(".ttf", StringComparison.OrdinalIgnoreCase))
-                        continue;
-                    else if (Path.GetExtension(file).Equals(".ttc", StringComparison.OrdinalIgnoreCase))
-                        continue;
-
-                    fileQueue.Enqueue(new FileInfo(file));
-                }
-
-                foreach (var subDir in Directory.GetDirectories(directory))
-                {
-                    ThreadPool.QueueUserWorkItem(_ => SearchFiles(subDir));
-                }
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            //catch (UnauthorizedAccessException e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //}
-            //catch (DirectoryNotFoundException e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //}
-            finally
-            {
-                semaphore.Release();
-            }
+            ThreadPool.QueueUserWorkItem(_ => MainForm.SearchFiles(directoryPath, fileQueue, semaphore));
         }
         private void UpdateDataGridView(object state)
         {
