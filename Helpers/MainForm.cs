@@ -2,20 +2,28 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace FileExplorer.Helpers
 {
     public static class MainForm
     {
-        public static void SearchFiles(string directory, ConcurrentQueue<FileInfo> fileQueue, SemaphoreSlim semaphore)
+        public static void SearchFiles(string directory, ConcurrentQueue<FileInfo> fileQueue, SemaphoreSlim semaphore, string extension)
         {
+            IEnumerable<string> files;
+            semaphore.Wait();
             try
             {
-                semaphore.Wait();
 
-                foreach (var file in Directory.GetFiles(directory))
+                if (!string.IsNullOrEmpty(extension))
+                    files = Directory.GetFiles(directory).Where(d => Path.GetExtension(d).Equals(extension));
+                else
+                    files = Directory.GetFiles(directory);
+
+                foreach (var file in files)
                 {
                     if (Path.GetExtension(file).Equals(".dll", StringComparison.OrdinalIgnoreCase))
                         continue;
@@ -35,7 +43,7 @@ namespace FileExplorer.Helpers
 
                 foreach (var subDir in Directory.GetDirectories(directory))
                 {
-                    ThreadPool.QueueUserWorkItem(_ => SearchFiles(subDir, fileQueue, semaphore));
+                    ThreadPool.QueueUserWorkItem(_ => SearchFiles(subDir, fileQueue, semaphore, extension));
                 }
             }
             catch (Exception e)

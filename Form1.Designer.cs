@@ -40,6 +40,8 @@
             this.FileExtension = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DirectorySaveButton = new System.Windows.Forms.Button();
             this.LoadFilesButton = new System.Windows.Forms.Button();
+            this.FileExtensionLabel = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.FilesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -132,11 +134,29 @@
             this.LoadFilesButton.UseVisualStyleBackColor = true;
             this.LoadFilesButton.Click += new System.EventHandler(this.LoadFilesButton_Click);
             // 
+            // FileExtensionLabel
+            // 
+            this.FileExtensionLabel.Location = new System.Drawing.Point(15, 218);
+            this.FileExtensionLabel.Name = "FileExtensionLabel";
+            this.FileExtensionLabel.Size = new System.Drawing.Size(79, 20);
+            this.FileExtensionLabel.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 187);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(131, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Расширение файла (.ext)";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.FileExtensionLabel);
             this.Controls.Add(this.LoadFilesButton);
             this.Controls.Add(this.DirectorySaveButton);
             this.Controls.Add(this.FilesDataGridView);
@@ -165,6 +185,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CreationTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastModifed;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileExtension;
+        private System.Windows.Forms.TextBox FileExtensionLabel;
+        private System.Windows.Forms.Label label1;
     }
 }
 

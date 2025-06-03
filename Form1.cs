@@ -19,7 +19,7 @@ namespace FileExplorer
         {
             InitializeComponent();
 
-            DirectoryTextBox.Text = MainForm.LoadDirectoryFromRegistry();
+            DirectoryTextBox.Text = MainForm.LoadDirectoryFromRegistry();       
 
             uiTimer = new System.Threading.Timer(UpdateDataGridView, null, 0, 100);
         }
@@ -30,6 +30,7 @@ namespace FileExplorer
 
         private void LoadFilesButton_Click(object sender, EventArgs e)
         {
+            string extension = FileExtensionLabel.Text;
             string directoryPath = DirectoryTextBox.Text;
 
             if (!Directory.Exists(directoryPath))
@@ -39,8 +40,9 @@ namespace FileExplorer
             }
 
             FilesDataGridView.Invoke(new Action(() => FilesDataGridView.Rows.Clear()));
+            fileQueue = new ConcurrentQueue<FileInfo>();
 
-            ThreadPool.QueueUserWorkItem(_ => MainForm.SearchFiles(directoryPath, fileQueue, semaphore));
+            ThreadPool.QueueUserWorkItem(_ => MainForm.SearchFiles(directoryPath, fileQueue, semaphore, extension));
         }
         private void UpdateDataGridView(object state)
         {
@@ -69,5 +71,6 @@ namespace FileExplorer
                 }));
             }
         }
+
     }
 }
